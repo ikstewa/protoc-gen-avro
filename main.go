@@ -14,6 +14,12 @@ import (
 	"strings"
 )
 
+type Params struct {
+	EmitOnly []string
+	NamespaceMap map[string]string
+}
+
+var params Params
 var typeRepo *avro.TypeRepo
 
 func readRequest() (*pluginpb.CodeGeneratorRequest, error) {
@@ -104,8 +110,9 @@ func processAll(fileProto *descriptorpb.FileDescriptorProto) {
 	}
 }
 
-func writeResponse(req *pluginpb.CodeGeneratorRequest) {
+func parseParams(req *pluginpb.CodeGeneratorRequest) Params {
 	var recordsToEmit []string
+	namespaceMap := map[string]string{}
 	param := req.GetParameter()
 	if len(param) > 0 {
 		paramTokens := strings.Split(param, " ")
@@ -113,10 +120,24 @@ func writeResponse(req *pluginpb.CodeGeneratorRequest) {
 			paramStrings := strings.Split(token, "=")
 			if len(paramStrings) == 2 && paramStrings[0] == "emit_only" {
 				recordsToEmit = strings.Split(paramStrings[1], ",")
+			} else if len(paramStrings) == 2 && paramStrings[0] == "namespace_map" {
+				namespaces := strings.Split(paramStrings[1], ",")
+				for _, namespaceMapToken := range namespaces {
+					namespaceTokens := strings.Split(namespaceMapToken, ":")
+					namespaceMap[namespaceTokens[0]] = namespaceTokens[1]
+				}
 			}
 		}
 	}
-	response := generateResponse(recordsToEmit)
+	return Params{
+		EmitOnly: recordsToEmit,
+		NamespaceMap: namespaceMap,
+	}
+
+}
+
+func writeResponse(req *pluginpb.CodeGeneratorRequest) {
+	response := generateResponse(params.EmitOnly)
 	out, err := proto.Marshal(response)
 	if err != nil {
 		log.Fatalf("%s", fmt.Errorf("error marshalling response: %w", err))
@@ -128,11 +149,12 @@ func writeResponse(req *pluginpb.CodeGeneratorRequest) {
 }
 
 func main() {
-	typeRepo = avro.NewTypeRepo()
 	req, err := readRequest()
 	if err != nil {
 		log.Fatalf("%s", fmt.Errorf("error reading request: %w", err))
 	}
+	params = parseParams(req)
+	typeRepo = avro.NewTypeRepo(params.NamespaceMap)
 
 	for _, file := range req.ProtoFile {
 		if !slices.Contains(req.FileToGenerate, *file.Name) {

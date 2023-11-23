@@ -54,15 +54,23 @@ func BasicFieldTypeFromProto(proto *descriptorpb.FieldDescriptorProto) Type {
 	case descriptorpb.FieldDescriptorProto_TYPE_DOUBLE:
 		return Bare("double")
 	case descriptorpb.FieldDescriptorProto_TYPE_INT64:
+		return Bare("long")
 	case descriptorpb.FieldDescriptorProto_TYPE_UINT64:
+		return Bare("long")
 	case descriptorpb.FieldDescriptorProto_TYPE_FIXED64:
+		return Bare("long")
 	case descriptorpb.FieldDescriptorProto_TYPE_SINT64:
+		return Bare("long")
 	case descriptorpb.FieldDescriptorProto_TYPE_SFIXED64:
 		return Bare("long")
 	case descriptorpb.FieldDescriptorProto_TYPE_INT32:
+		return Bare("int")
 	case descriptorpb.FieldDescriptorProto_TYPE_UINT32:
+		return Bare("int")
 	case descriptorpb.FieldDescriptorProto_TYPE_FIXED32:
+		return Bare("int")
 	case descriptorpb.FieldDescriptorProto_TYPE_SINT32:
+		return Bare("int")
 	case descriptorpb.FieldDescriptorProto_TYPE_SFIXED32:
 		return Bare("int")
 	case descriptorpb.FieldDescriptorProto_TYPE_BOOL:

@@ -21,10 +21,11 @@ func (t Record) GetNamespace() string {
 }
 
 func (t Record) ToJSON(types *TypeRepo) (any, error) {
+	types.SeenType(t)
 	jsonMap := orderedmap.New()
 	jsonMap.Set("type", "record")
 	jsonMap.Set("name", t.Name)
-	jsonMap.Set("namespace", t.Namespace)
+	jsonMap.Set("namespace", types.MappedNamespace(t.Namespace))
 	fields := make([]any, len(t.Fields))
 	for i, field := range t.Fields {
 		fieldJson, err := field.ToJSON(types)

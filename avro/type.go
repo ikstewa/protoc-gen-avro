@@ -36,15 +36,18 @@ func DefaultValue(t Type) any {
 	case Bare("boolean"):
 		return false
 	case Bare("int"):
+		return 0
 	case Bare("long"):
 		return 0
 	case Bare("float"):
+		return 0.0
 	case Bare("double"):
 		return 0.0
 	}
 
 	switch typedT := t.(type) {
 		case Record:
+			return map[string]any{}
 		case Map:
 			return map[string]any{}
 		case Array:
