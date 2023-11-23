@@ -3,15 +3,7 @@ Generate Avro schemas from Protobuf files.
 
 ## Usage
 
-Download and build this project:
-
-```bash
-go get github.com/flipp-oss/protoc-gen-avro
-go mod tidy
-go build
-```
-
-Put the generated binary in your path:
+Download this project from the Releases page. Put the generated binary in your path:
 
 ```bash
 mv protoc-gen-avro $GOPATH/bin
