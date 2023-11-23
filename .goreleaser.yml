@@ -16,6 +16,11 @@ changelog:
     exclude:
       - '^docs:'
       - '^test:'
+
+release:
+  github:
+    owner: flipp-oss
+    name: protoc-gen-avro
 #brews:
 #  -
 #    name: global_docker_compose
