@@ -15,7 +15,7 @@ Generate Avro schemas from your Protobuf files:
 protoc --avro_out=. *.proto
 ```
 
-By default, this will generate an `.avsc` file for each `.proto` file. You can instead specify the records to emit by using the `emit_only` option:
+By default, this will generate an `.avsc` file for each message that has been read. You can instead specify the records to emit by using the `emit_only` option:
 
 ```bash
 protoc --avro_out=. --avro_opt=emit_only=Foo,Bar:. *.proto
