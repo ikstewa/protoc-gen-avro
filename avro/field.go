@@ -23,7 +23,7 @@ func (t Field) ToJSON(types *TypeRepo) (any, error) {
   if t.Default != "" {
     jsonMap.Set("default", t.Default)
   } else {
-		jsonMap.Set("default", DefaultValue(t.Type))
+		jsonMap.Set("default", DefaultValue(typeJson))
 	}
   return jsonMap, nil
 }
@@ -85,4 +85,37 @@ func BasicFieldTypeFromProto(proto *descriptorpb.FieldDescriptorProto) Type {
 		return Ref(proto.GetTypeName())
 	}
 	return Bare(proto.GetName())
+}
+
+func DefaultValue(t any) any {
+	switch t {
+	case "null":
+		return nil
+	case "boolean":
+		return false
+	case "int":
+		return 0
+	case "long":
+		return 0
+	case "float":
+		return 0.0
+	case "double":
+		return 0.0
+	case "map":
+		return map[string]any{}
+	case "record":
+		return map[string]any{}
+	case "array":
+		return []any{}
+	}
+
+	switch typedT := t.(type) {
+		case []any:
+			return DefaultValue(typedT[0])
+		case *orderedmap.OrderedMap:
+			val, _ := typedT.Get("type")
+			return DefaultValue(val)
+	}
+
+	return ""
 }
