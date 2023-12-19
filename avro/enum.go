@@ -62,17 +62,17 @@ func (t Enum) ToJSON(repo *TypeRepo) (any, error) {
   jsonMap := orderedmap.New()
   jsonMap.Set("type", "enum")
   jsonMap.Set("name", t.Name)
+	symbols := t.Symbols
+	defaultVal := t.Symbols[0]
   if repo.RemoveEnumPrefixes {
     prefix := longestCommonPrefix(t.Symbols)
-    symbols := make([]string, len(t.Symbols))
     for i, symbol := range t.Symbols {
       symbols[i] = symbol[len(prefix):]
     }
-    jsonMap.Set("symbols", symbols)
-  } else {
-    jsonMap.Set("symbols", t.Symbols)
+		defaultVal = defaultVal[len(prefix):]
   }
-  jsonMap.Set("default", t.Symbols[0])
+	jsonMap.Set("symbols", symbols)
+  jsonMap.Set("default", defaultVal)
   return jsonMap, nil
 }
 

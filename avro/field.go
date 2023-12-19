@@ -114,6 +114,10 @@ func DefaultValue(t any) any {
 			return DefaultValue(typedT[0])
 		case *orderedmap.OrderedMap:
 			val, _ := typedT.Get("type")
+			if val == "enum" {
+				defaultVal, _ := typedT.Get("default")
+				return defaultVal
+			}
 			return DefaultValue(val)
 	}
 
