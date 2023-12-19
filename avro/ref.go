@@ -14,11 +14,20 @@ func (r Ref) ToJSON(types *TypeRepo) (any, error) {
   case ".google.protobuf.Any":
     return Bare("string").ToJSON(types)
   case ".google.protobuf.Struct":
-    return Map{Values: Bare("string")}.ToJSON(types)
+    unionType := Union{Types: []Type{
+      Bare("string"),
+      Bare("int"),
+      Bare("long"),
+      Bare("float"),
+      Bare("double"),
+      Bare("boolean"),
+      Bare("bytes"),
+    }}
+
+    return Map{Values: unionType}.ToJSON(types)
   case ".google.protobuf.Value":
     return Bare("string").ToJSON(types)
   }
-
   foundType, err := types.GetType(string(r))
   if err != nil {
     return nil, fmt.Errorf("no type found for %s", r)
