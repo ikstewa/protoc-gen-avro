@@ -4,37 +4,17 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/flipp-oss/protoc-gen-avro/avro"
+	"github.com/flipp-oss/protoc-gen-avro/input"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/descriptorpb"
 	"google.golang.org/protobuf/types/pluginpb"
-	"io"
 	"log"
 	"os"
 	"slices"
-	"strings"
 )
 
-type Params struct {
-	EmitOnly []string
-	NamespaceMap map[string]string
-	CollapseFields []string
-}
-
-var params Params
+var params input.Params
 var typeRepo *avro.TypeRepo
-
-func readRequest() (*pluginpb.CodeGeneratorRequest, error) {
-	in, err := io.ReadAll(os.Stdin)
-	if err != nil {
-		return nil, err
-	}
-	req := &pluginpb.CodeGeneratorRequest{}
-	err = proto.Unmarshal(in, req)
-	if err != nil {
-		return nil, err
-	}
-	return req, nil
-}
 
 func processMessage(proto *descriptorpb.DescriptorProto, protoPackage string) {
 	records := avro.RecordFromProto(proto, protoPackage)
@@ -111,47 +91,6 @@ func processAll(fileProto *descriptorpb.FileDescriptorProto) {
 	}
 }
 
-func parseRawParams(req *pluginpb.CodeGeneratorRequest) map[string]string {
-	param := req.GetParameter()
-	if len(param) == 0 {
-		return nil
-	}
-	paramTokens := strings.Split(param, ",")
-	paramMap := map[string]string{}
-	for _, token := range paramTokens {
-		paramStrings := strings.Split(token, "=")
-		if len(paramStrings) == 2 {
-			paramMap[paramStrings[0]] = paramStrings[1]
-		}
-	}
-	return paramMap
-}
-
-func parseParams(req *pluginpb.CodeGeneratorRequest) Params {
-	var recordsToEmit []string
-	namespaceMap := map[string]string{}
-	var collapseFields []string
-	rawParams := parseRawParams(req)
-	for k, v := range rawParams {
-		if k == "emit_only" {
-			recordsToEmit = strings.Split(v, ";")
-		} else if k == "namespace_map" {
-			namespaces := strings.Split(v, ";")
-			for _, namespaceMapToken := range namespaces {
-				namespaceTokens := strings.Split(namespaceMapToken, ":")
-				namespaceMap[namespaceTokens[0]] = namespaceTokens[1]
-			}
-		} else if k == "collapse_fields" {
-			collapseFields = strings.Split(v, ";")
-		}
-	}
-	return Params{
-		EmitOnly: recordsToEmit,
-		NamespaceMap: namespaceMap,
-		CollapseFields: collapseFields,
-	}
-}
-
 func writeResponse(req *pluginpb.CodeGeneratorRequest) {
 	response := generateResponse(params.EmitOnly)
 	out, err := proto.Marshal(response)
@@ -165,12 +104,12 @@ func writeResponse(req *pluginpb.CodeGeneratorRequest) {
 }
 
 func main() {
-	req, err := readRequest()
+	req, err := input.ReadRequest()
 	if err != nil {
 		log.Fatalf("%s", fmt.Errorf("error reading request: %w", err))
 	}
-	params = parseParams(req)
-	typeRepo = avro.NewTypeRepo(params.NamespaceMap, params.CollapseFields)
+	params = input.ParseParams(req)
+	typeRepo = avro.NewTypeRepo(params)
 
 	for _, file := range req.ProtoFile {
 		if !slices.Contains(req.FileToGenerate, *file.Name) {

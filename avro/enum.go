@@ -20,11 +20,58 @@ func (t Enum) GetNamespace() string {
   return t.Namespace
 }
 
-func (t Enum) ToJSON(_ *TypeRepo) (any, error) {
+// https://golangbyexample.com/longest-common-prefix-golang/
+func longestCommonPrefix(strs []string) string {
+	lenStrs := len(strs)
+
+	if lenStrs == 0 {
+		return ""
+	}
+
+	firstString := strs[0]
+
+	lenFirstString := len(firstString)
+
+	commonPrefix := ""
+	for i := 0; i < lenFirstString; i++ {
+		firstStringChar := string(firstString[i])
+		match := true
+		for j := 1; j < lenStrs; j++ {
+			if (len(strs[j]) - 1) < i {
+				match = false
+				break
+			}
+
+			if string(strs[j][i]) != firstStringChar {
+				match = false
+				break
+			}
+		}
+
+		if match {
+			commonPrefix += firstStringChar
+		} else {
+			break
+		}
+	}
+
+	return commonPrefix
+}
+
+func (t Enum) ToJSON(repo *TypeRepo) (any, error) {
   jsonMap := orderedmap.New()
   jsonMap.Set("type", "enum")
   jsonMap.Set("name", t.Name)
-  jsonMap.Set("symbols", t.Symbols)
+  if repo.RemoveEnumPrefixes {
+    prefix := longestCommonPrefix(t.Symbols)
+    symbols := make([]string, len(t.Symbols))
+    for i, symbol := range t.Symbols {
+      symbols[i] = symbol[len(prefix):]
+    }
+    jsonMap.Set("symbols", symbols)
+  } else {
+    jsonMap.Set("symbols", t.Symbols)
+  }
   jsonMap.Set("default", t.Symbols[0])
   return jsonMap, nil
 }

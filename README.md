@@ -70,13 +70,32 @@ message MyRecord {
 }
 ```
 
+* `remove_enum_prefixes` - if set to true, will remove the prefixes from enum values. E.g. if you have an enum like:
+```protobuf
+enum Category {
+  CATEGORY_GOOD = 0;
+  CATEGORY_BAD = 1;
+}
+```
+
+...with this option on, it will be translated into:
+
+```avro
+{
+  "type": "enum",
+  "name": "CATEGORY",
+  "symbols": [
+    "GOOD",
+    "BAD"
+  ]
+}
+```
+
 ---
 
 To Do List:
 
 * Add tests
-* Need to decide on how to truly differentiate between optional and required fields (technically all fields are optional on Protobuf, but maybe we should use the actual `optional` keyword and only have those be optional in Avro?)
-* Split up `main.go` - it's trying to do too much
 * Homebrew?
 
 ---

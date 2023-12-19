@@ -2,6 +2,7 @@ package avro
 
 import (
   "fmt"
+  "github.com/flipp-oss/protoc-gen-avro/input"
   "strings"
 )
 
@@ -10,13 +11,15 @@ type TypeRepo struct {
   seenTypes map[string]bool // go "set"
   NamespaceMap map[string]string
   CollapseFields []string
+  RemoveEnumPrefixes bool
 }
 
-func NewTypeRepo(namespaceMap map[string]string, collapseFields []string) *TypeRepo {
+func NewTypeRepo(params input.Params) *TypeRepo {
   return &TypeRepo{
     Types: make(map[string]NamedType),
-    NamespaceMap: namespaceMap,
-    CollapseFields: collapseFields,
+    NamespaceMap: params.NamespaceMap,
+    CollapseFields: params.CollapseFields,
+    RemoveEnumPrefixes: params.RemoveEnumPrefixes,
   }
 }
 
