@@ -9,12 +9,14 @@ type TypeRepo struct {
   Types map[string]NamedType
   seenTypes map[string]bool // go "set"
   NamespaceMap map[string]string
+  CollapseFields []string
 }
 
-func NewTypeRepo(namespaceMap map[string]string) *TypeRepo {
+func NewTypeRepo(namespaceMap map[string]string, collapseFields []string) *TypeRepo {
   return &TypeRepo{
     Types: make(map[string]NamedType),
     NamespaceMap: namespaceMap,
+    CollapseFields: collapseFields,
   }
 }
 

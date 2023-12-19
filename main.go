@@ -17,6 +17,7 @@ import (
 type Params struct {
 	EmitOnly []string
 	NamespaceMap map[string]string
+	CollapseFields []string
 }
 
 var params Params
@@ -110,30 +111,45 @@ func processAll(fileProto *descriptorpb.FileDescriptorProto) {
 	}
 }
 
+func parseRawParams(req *pluginpb.CodeGeneratorRequest) map[string]string {
+	param := req.GetParameter()
+	if len(param) == 0 {
+		return nil
+	}
+	paramTokens := strings.Split(param, ",")
+	paramMap := map[string]string{}
+	for _, token := range paramTokens {
+		paramStrings := strings.Split(token, "=")
+		if len(paramStrings) == 2 {
+			paramMap[paramStrings[0]] = paramStrings[1]
+		}
+	}
+	return paramMap
+}
+
 func parseParams(req *pluginpb.CodeGeneratorRequest) Params {
 	var recordsToEmit []string
 	namespaceMap := map[string]string{}
-	param := req.GetParameter()
-	if len(param) > 0 {
-		paramTokens := strings.Split(param, " ")
-		for _, token := range paramTokens {
-			paramStrings := strings.Split(token, "=")
-			if len(paramStrings) == 2 && paramStrings[0] == "emit_only" {
-				recordsToEmit = strings.Split(paramStrings[1], ",")
-			} else if len(paramStrings) == 2 && paramStrings[0] == "namespace_map" {
-				namespaces := strings.Split(paramStrings[1], ",")
-				for _, namespaceMapToken := range namespaces {
-					namespaceTokens := strings.Split(namespaceMapToken, ":")
-					namespaceMap[namespaceTokens[0]] = namespaceTokens[1]
-				}
+	var collapseFields []string
+	rawParams := parseRawParams(req)
+	for k, v := range rawParams {
+		if k == "emit_only" {
+			recordsToEmit = strings.Split(v, ";")
+		} else if k == "namespace_map" {
+			namespaces := strings.Split(v, ";")
+			for _, namespaceMapToken := range namespaces {
+				namespaceTokens := strings.Split(namespaceMapToken, ":")
+				namespaceMap[namespaceTokens[0]] = namespaceTokens[1]
 			}
+		} else if k == "collapse_fields" {
+			collapseFields = strings.Split(v, ";")
 		}
 	}
 	return Params{
 		EmitOnly: recordsToEmit,
 		NamespaceMap: namespaceMap,
+		CollapseFields: collapseFields,
 	}
-
 }
 
 func writeResponse(req *pluginpb.CodeGeneratorRequest) {
@@ -154,7 +170,7 @@ func main() {
 		log.Fatalf("%s", fmt.Errorf("error reading request: %w", err))
 	}
 	params = parseParams(req)
-	typeRepo = avro.NewTypeRepo(params.NamespaceMap)
+	typeRepo = avro.NewTypeRepo(params.NamespaceMap, params.CollapseFields)
 
 	for _, file := range req.ProtoFile {
 		if !slices.Contains(req.FileToGenerate, *file.Name) {

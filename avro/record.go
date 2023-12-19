@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/iancoleman/orderedmap"
 	"google.golang.org/protobuf/types/descriptorpb"
+	"slices"
 )
 
 type Record struct {
@@ -21,6 +22,9 @@ func (t Record) GetNamespace() string {
 }
 
 func (t Record) ToJSON(types *TypeRepo) (any, error) {
+	if slices.Contains(types.CollapseFields, t.Name) {
+		return t.Fields[0].ToJSON(types)
+	}
 	types.SeenType(t)
 	jsonMap := orderedmap.New()
 	jsonMap.Set("type", "record")

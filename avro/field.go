@@ -40,7 +40,7 @@ func FieldTypeFromProto(proto *descriptorpb.FieldDescriptorProto) Type {
 	basicType := BasicFieldTypeFromProto(proto)
 	if proto.GetLabel() == descriptorpb.FieldDescriptorProto_LABEL_REPEATED {
 		return Array{Items: basicType}
-	} else if proto.GetLabel() == descriptorpb.FieldDescriptorProto_LABEL_OPTIONAL {
+	} else if proto.GetProto3Optional() {
 		return Union{Types: []Type{Bare("null"), basicType}}
 	} else {
 		return basicType
