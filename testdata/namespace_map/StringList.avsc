@@ -1,0 +1,15 @@
+{
+  "type": "record",
+  "name": "StringList",
+  "namespace": "mynamespace",
+  "fields": [
+    {
+      "name": "data",
+      "type": {
+        "type": "array",
+        "items": "string"
+      },
+      "default": []
+    }
+  ]
+}

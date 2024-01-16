@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package testdata;
+
+import "testdata/foobar.proto";
+import "google/protobuf/timestamp.proto";
+
+message StringList {
+  repeated string data = 1;
+}
+
+message Widget {
+  optional google.protobuf.Timestamp from_date = 1;
+  google.protobuf.Timestamp to_date = 2;
+  Foobar foobar = 3;
+  StringList strings = 4;
+  map<string, StringList> string_map = 5;
+}

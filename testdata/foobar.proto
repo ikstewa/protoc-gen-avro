@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package testdata;
+
+enum Blarp {
+  BLARP_UNSPECIFIED = 0;
+  BLARP_ME = 1;
+  BLARP_YOU = 2;
+}
+
+message Yowza {
+  float hoo_boy = 1;
+}
+
+message Foobar {
+  string name = 1;
+  Blarp blarp = 2;
+  Yowza yowza = 3;
+  repeated Blarp blarps = 4;
+  repeated Yowza yowzas = 5;
+  repeated string names = 6;
+  optional string optional_name = 7;
+  optional Blarp optional_blarp = 8;
+  optional Yowza optional_yowza = 9;
+  int32 a_num = 10;
+  map<string, string> a_string_map = 11;
+  map<string, Blarp> a_blarp_map = 12;
+  map<bool, Yowza> a_yowza_map = 13;
+}

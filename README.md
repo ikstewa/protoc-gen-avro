@@ -25,7 +25,7 @@ protoc --avro_out=. --avro_opt=emit_only=Foo;Bar *.proto
 
 This will generate only `Foo.avsc` and `Bar.avsc` files.
 
-* `namespace_map` - A semicolon-separated list of namespaces to map. If not specified, all namespaces will be mapped.
+* `namespace_map` - A comma-separated list of namespaces to map. If not specified, all namespaces will be mapped.
 
 ```bash
 protoc --avro_out=. --avro_opt=namespace_map=foo:bar,baz:spam *.proto
