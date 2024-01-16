@@ -33,7 +33,7 @@ protoc --avro_out=. --avro_opt=namespace_map=foo:bar,baz:spam *.proto
 
 ...will change the output namespace for `foo` to `bar` and `baz` to `spam`.
 
-* `collapse_fields` - A semicolon-separated list of records to collapse. If not specified, no records will be collapsed. Collapsed records should have a single field in them, and they will be replaced in the output by that field. This can be useful to overcome some limitations of Protobuf - e.g. Protobuf doesn't have the ability to have a map of arrays, while Avro does.
+* `collapse_fields` - A semicolon-separated list of records to collapse. Collapsed records should have a single field in them, and they will be replaced in the output by that field. This can be useful to overcome some limitations of Protobuf - e.g. Protobuf doesn't have the ability to have an array of maps, while Avro does.
 
 ```bash
 protoc --avro_out=. --avro_opt=collapse_fields=StringList;SomeOtherRecord *.proto
@@ -46,13 +46,13 @@ message StringList {
   repeated string strings = 1;
 }
 message MyRecord {
-    repeated StringList my_field = 1;
+    map<string, StringList> my_field = 1;
 }
 ```
 
 ...the output will look like:
 
-```avro
+```json
 {
   "type": "record",
   "name": "MyRecord",
@@ -60,9 +60,12 @@ message MyRecord {
     {
       "name": "my_field",
       "type": {
-        "type": "array",
-        "items": {
-          "type": "string"
+        "type": "map",
+        "values": {
+          "type": {
+            "type": "array",
+            "items": "string"
+          }
         }
       }
     }
@@ -80,7 +83,7 @@ enum Category {
 
 ...with this option on, it will be translated into:
 
-```avro
+```json
 {
   "type": "enum",
   "name": "CATEGORY",
