@@ -16,7 +16,7 @@ type NamedType interface {
 }
 
 func LogMsg(msg string, args ...any) {
-	fmt.Fprintf(os.Stderr, fmt.Sprintf(msg, args))
+	fmt.Fprintf(os.Stderr, fmt.Sprintf(msg, args...))
 	fmt.Fprintln(os.Stderr)
 }
 
