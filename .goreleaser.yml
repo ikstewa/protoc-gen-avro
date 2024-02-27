@@ -21,6 +21,10 @@ release:
   github:
     owner: flipp-oss
     name: protoc-gen-avro
+
+archives:
+  - id: protoc-gen-avro
+    name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
 #brews:
 #  -
 #    name: global_docker_compose

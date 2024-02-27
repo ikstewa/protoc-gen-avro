@@ -2,7 +2,7 @@
 
 # UNRELEASED
 
-# 0.6 - 2024-02-27
+# 0.6.1 - 2024-02-27
 
 - Fix: `collapse_fields` was only working on the first instance of the field, not when it was found inside a map etc. later on.
 
