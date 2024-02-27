@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/iancoleman/orderedmap"
 	"google.golang.org/protobuf/types/descriptorpb"
+	"reflect"
 )
 
 type Field struct {
@@ -18,24 +19,19 @@ func (t Field) ToJSON(types *TypeRepo) (any, error) {
 		return nil, fmt.Errorf("error parsing field type %s %w", t.Name, err)
 	}
   jsonMap := orderedmap.New()
-	mapType, ok := typeJson.(*orderedmap.OrderedMap)
-	if ok {
-		_, isType := mapType.Get("type")
-		if isType { // we merge the type with the current type
-			for _, k := range mapType.Keys() {
-				val, _ := mapType.Get(k)
-				jsonMap.Set(k, val)
-			}
-		}
-	} else {
-	  jsonMap.Set("type", typeJson)
-	}
   jsonMap.Set("name", t.Name)
+  jsonMap.Set("type", typeJson)
+	var defaultValue any
   if t.Default != "" {
-    jsonMap.Set("default", t.Default)
+		defaultValue = t.Default
   } else {
-		jsonMap.Set("default", DefaultValue(typeJson))
+		defaultValue = DefaultValue(typeJson)
 	}
+	// Avro can't actually handle defaults for records
+	if reflect.ValueOf(defaultValue).Kind() != reflect.Map {
+		jsonMap.Set("default", defaultValue)
+	}
+
   return jsonMap, nil
 }
 
