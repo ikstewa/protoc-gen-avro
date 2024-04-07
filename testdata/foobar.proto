@@ -17,6 +17,10 @@ message Yowza {
 }
 
 message Foobar {
+  enum NestedEnum {
+   A = 0;
+   B = 1;
+  }
   string name = 1;
   Blarp blarp = 2;
   Yowza yowza = 3;
@@ -32,4 +36,5 @@ message Foobar {
   map<bool, Yowza> a_yowza_map = 13;
   map<string, StringList> string_list_map = 14;
   repeated StringList string_lists = 15;
+  NestedEnum nested_enum = 16;
 }
