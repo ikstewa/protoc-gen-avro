@@ -1,0 +1,228 @@
+{
+  "type": "record",
+  "name": "Widget",
+  "namespace": "testdata",
+  "fields": [
+    {
+      "name": "from_date",
+      "type": [
+        "null",
+        "long"
+      ],
+      "default": null
+    },
+    {
+      "name": "to_date",
+      "type": "long",
+      "default": 0
+    },
+    {
+      "name": "string_map",
+      "type": {
+        "type": "map",
+        "values": {
+          "type": "record",
+          "name": "StringList",
+          "namespace": "testdata",
+          "fields": [
+            {
+              "name": "data",
+              "type": {
+                "type": "array",
+                "items": "string"
+              },
+              "default": []
+            }
+          ]
+        }
+      },
+      "default": {}
+    },
+    {
+      "name": "strings",
+      "type": "testdata.StringList",
+      "default": ""
+    },
+    {
+      "name": "a_one_of",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "AOneOf",
+          "namespace": "testdata",
+          "fields": [
+            {
+              "name": "oneof_types",
+              "type": [
+                {
+                  "type": "record",
+                  "name": "TypeA",
+                  "namespace": "testdata",
+                  "fields": [
+                    {
+                      "name": "foo",
+                      "type": "string",
+                      "default": ""
+                    }
+                  ]
+                },
+                {
+                  "type": "record",
+                  "name": "TypeB",
+                  "namespace": "testdata",
+                  "fields": [
+                    {
+                      "name": "bar",
+                      "type": "string",
+                      "default": ""
+                    }
+                  ]
+                }
+              ],
+              "default": null
+            }
+          ]
+        }
+      ],
+      "default": null
+    },
+    {
+      "name": "foobar",
+      "type": {
+        "type": "record",
+        "name": "Foobar",
+        "namespace": "testdata",
+        "fields": [
+          {
+            "name": "name",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "blarp",
+            "type": {
+              "type": "enum",
+              "name": "Blarp",
+              "symbols": [
+                "BLARP_UNSPECIFIED",
+                "BLARP_ME",
+                "BLARP_YOU"
+              ],
+              "default": "BLARP_UNSPECIFIED"
+            },
+            "default": "BLARP_UNSPECIFIED"
+          },
+          {
+            "name": "yowza",
+            "type": {
+              "type": "record",
+              "name": "Yowza",
+              "namespace": "testdata",
+              "fields": [
+                {
+                  "name": "hoo_boy",
+                  "type": "float",
+                  "default": 0
+                }
+              ]
+            }
+          },
+          {
+            "name": "blarps",
+            "type": {
+              "type": "array",
+              "items": "testdata.Blarp"
+            },
+            "default": []
+          },
+          {
+            "name": "yowzas",
+            "type": {
+              "type": "array",
+              "items": "testdata.Yowza"
+            },
+            "default": []
+          },
+          {
+            "name": "names",
+            "type": {
+              "type": "array",
+              "items": "string"
+            },
+            "default": []
+          },
+          {
+            "name": "optional_name",
+            "type": [
+              "null",
+              "string"
+            ],
+            "default": null
+          },
+          {
+            "name": "optional_blarp",
+            "type": [
+              "null",
+              "testdata.Blarp"
+            ],
+            "default": null
+          },
+          {
+            "name": "optional_yowza",
+            "type": [
+              "null",
+              "testdata.Yowza"
+            ],
+            "default": null
+          },
+          {
+            "name": "a_num",
+            "type": "int",
+            "default": 0
+          },
+          {
+            "name": "a_string_map",
+            "type": {
+              "type": "map",
+              "values": "string"
+            },
+            "default": {}
+          },
+          {
+            "name": "a_blarp_map",
+            "type": {
+              "type": "map",
+              "values": "testdata.Blarp"
+            },
+            "default": {}
+          },
+          {
+            "name": "a_yowza_map",
+            "type": {
+              "type": "map",
+              "values": "testdata.Yowza"
+            },
+            "default": {}
+          },
+          {
+            "name": "string_list_map",
+            "type": {
+              "type": "map",
+              "values": "testdata.StringList"
+            },
+            "default": {}
+          },
+          {
+            "name": "string_lists",
+            "type": {
+              "type": "array",
+              "items": "testdata.StringList"
+            },
+            "default": []
+          }
+        ]
+      }
+    }
+  ]
+}
