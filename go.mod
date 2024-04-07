@@ -1,4 +1,4 @@
-module github.com/flipp-oss/protoc-gen-avro
+module github.com/ikstewa/protoc-gen-avro
 
 go 1.21.3
 

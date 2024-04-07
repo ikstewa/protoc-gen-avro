@@ -19,7 +19,7 @@ changelog:
 
 release:
   github:
-    owner: flipp-oss
+    owner: ikstewa
     name: protoc-gen-avro
 
 archives:
