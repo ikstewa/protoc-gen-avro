@@ -159,6 +159,28 @@ message Yowza {
 
 `./my.test.data/Yowza.avsc`
 
+* `json_fieldname` - if set to true, field names will use JSON format (camel case). E.g. :
+```protobuf
+message Yowza {
+  int32 hoo_boy = 1;
+}
+```
+
+...with this option on, it will be translated into:
+
+```json
+{
+  "type": "record",
+  "name": "Yowza",
+  "fields": [
+    {
+      "name": "hooBoy",
+      "type": "int"
+    }
+  ]
+}
+```
+
 ---
 
 To Do List:

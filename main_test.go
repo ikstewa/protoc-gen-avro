@@ -105,6 +105,10 @@ func Test_PrefixSchemaFilesWithPackage(t *testing.T) {
 	runTest(t, "prefix_schema_files_with_package", map[string]string{"prefix_schema_files_with_package": "true"})
 }
 
+func Test_JsonFieldnames(t *testing.T) {
+	runTest(t, "json_fieldnames", map[string]string{"json_fieldnames": "true"})
+}
+
 func assertEqualFiles(t *testing.T, original, generated string) {
 	names, err := fileNames(original, false, true)
 	if err != nil {
