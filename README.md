@@ -181,9 +181,6 @@ message Yowza {
 }
 ```
 
-`./my.test.data/Yowza.avsc`
-
-
 ---
 
 To Do List:
