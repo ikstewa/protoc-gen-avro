@@ -46,16 +46,16 @@ func FieldFromProto(proto *descriptorpb.FieldDescriptorProto, typeRepo *TypeRepo
   }
   return Field{
     Name: name,
-    Type: FieldTypeFromProto(proto),
+    Type: FieldTypeFromProto(proto, typeRepo),
     Default: proto.GetDefaultValue(),
   }
 }
 
-func FieldTypeFromProto(proto *descriptorpb.FieldDescriptorProto) Type {
+func FieldTypeFromProto(proto *descriptorpb.FieldDescriptorProto, typeRepo *TypeRepo) Type {
 	basicType := BasicFieldTypeFromProto(proto)
 	if proto.GetLabel() == descriptorpb.FieldDescriptorProto_LABEL_REPEATED {
 		return Array{Items: basicType}
-	} else if proto.GetProto3Optional() {
+	} else if proto.GetProto3Optional() || (proto.OneofIndex != nil && typeRepo.RetainOneofFieldnames) {
 		return Union{Types: []Type{Bare("null"), basicType}}
 	} else {
 		return basicType

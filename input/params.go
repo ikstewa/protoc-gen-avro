@@ -16,6 +16,7 @@ type Params struct {
 	PreserveNonStringMaps        bool
 	PrefixSchemaFilesWithPackage bool
 	JsonFieldnames               bool
+	RetainOneofFieldnames        bool
 }
 
 func ReadRequest() (*pluginpb.CodeGeneratorRequest, error) {
@@ -71,6 +72,8 @@ func ParseParams(req *pluginpb.CodeGeneratorRequest) Params {
 			params.PrefixSchemaFilesWithPackage = true
 		} else if k == "json_fieldnames" {
 			params.JsonFieldnames = true
+		} else if k == "retain_oneof_fieldnames" {
+			params.RetainOneofFieldnames = true
 		}
 	}
 	return params

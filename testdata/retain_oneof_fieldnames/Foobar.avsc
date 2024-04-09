@@ -30,7 +30,7 @@
         "namespace": "testdata",
         "fields": [
           {
-            "name": "hooBoy",
+            "name": "hoo_boy",
             "type": "float",
             "default": 0
           }
@@ -62,7 +62,7 @@
       "default": []
     },
     {
-      "name": "optionalName",
+      "name": "optional_name",
       "type": [
         "null",
         "string"
@@ -70,7 +70,7 @@
       "default": null
     },
     {
-      "name": "optionalBlarp",
+      "name": "optional_blarp",
       "type": [
         "null",
         "testdata.Blarp"
@@ -78,7 +78,7 @@
       "default": null
     },
     {
-      "name": "optionalYowza",
+      "name": "optional_yowza",
       "type": [
         "null",
         "testdata.Yowza"
@@ -86,12 +86,12 @@
       "default": null
     },
     {
-      "name": "aNum",
+      "name": "a_num",
       "type": "int",
       "default": 0
     },
     {
-      "name": "aStringMap",
+      "name": "a_string_map",
       "type": {
         "type": "map",
         "values": "string"
@@ -99,7 +99,7 @@
       "default": {}
     },
     {
-      "name": "aBlarpMap",
+      "name": "a_blarp_map",
       "type": {
         "type": "map",
         "values": "testdata.Blarp"
@@ -107,7 +107,7 @@
       "default": {}
     },
     {
-      "name": "aYowzaMap",
+      "name": "a_yowza_map",
       "type": {
         "type": "map",
         "values": "testdata.Yowza"
@@ -115,7 +115,7 @@
       "default": {}
     },
     {
-      "name": "stringListMap",
+      "name": "string_list_map",
       "type": {
         "type": "map",
         "values": {
@@ -137,7 +137,7 @@
       "default": {}
     },
     {
-      "name": "stringLists",
+      "name": "string_lists",
       "type": {
         "type": "array",
         "items": "testdata.StringList"
@@ -145,7 +145,7 @@
       "default": []
     },
     {
-      "name": "nestedEnum",
+      "name": "nested_enum",
       "type": {
         "type": "enum",
         "name": "NestedEnum",

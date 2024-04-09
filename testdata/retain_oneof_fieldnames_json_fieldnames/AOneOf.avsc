@@ -4,8 +4,9 @@
   "namespace": "testdata",
   "fields": [
     {
-      "name": "oneof_types",
+      "name": "a",
       "type": [
+        "null",
         {
           "type": "record",
           "name": "TypeA",
@@ -17,7 +18,14 @@
               "default": ""
             }
           ]
-        },
+        }
+      ],
+      "default": null
+    },
+    {
+      "name": "b",
+      "type": [
+        "null",
         {
           "type": "record",
           "name": "TypeB",
