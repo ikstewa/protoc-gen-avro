@@ -52,7 +52,7 @@ func RecordFromProto(proto *descriptorpb.DescriptorProto, namespace string, type
 				Map{
 					Namespace: namespace,
 					Name:      proto.GetName(),
-					Values:    FieldTypeFromProto(proto.Field[1]),
+					Values:    FieldTypeFromProto(proto.Field[1], typeRepo),
 				},
 			}
 		}
@@ -77,9 +77,9 @@ func RecordFromProto(proto *descriptorpb.DescriptorProto, namespace string, type
 	for _, field := range proto.Field {
 		// proto3_optional will put in a dummy oneof. We don't need to emit this (all Protobuf values
 		// are optional) so we should ignore it.
-		if field.OneofIndex != nil && !field.GetProto3Optional() {
+		if field.OneofIndex != nil && !field.GetProto3Optional() && !typeRepo.RetainOneofFieldnames {
 			union := oneofs[field.GetOneofIndex()].Type.(Union)
-			union.Types = append(union.Types, FieldTypeFromProto(field))
+			union.Types = append(union.Types, FieldTypeFromProto(field, typeRepo))
 			oneofs[field.GetOneofIndex()].Type = union
 		} else {
 			fields = append(fields, FieldFromProto(field, typeRepo))

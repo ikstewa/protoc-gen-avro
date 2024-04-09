@@ -181,6 +181,84 @@ message Yowza {
 }
 ```
 
+* `retain_oneof_fieldnames` - if set to true, when using a oneof the fields retain their original name instead of using the type name. This is intended to better match the json output from proto. E.g. :
+```protobuf
+message AOneOf {
+  oneof oneof_types {
+    string a_string = 1;
+    int32 a_num = 2;
+  }
+}
+message Widget {
+  AOneOf a_one_of = 6;
+}
+```
+
+...with this option _off_ (default), it will be translated into:
+```json
+{
+  "type": "record",
+  "name": "Widget",
+  "fields": [
+    {
+      "name": "a_one_of",
+      "type": {
+        "type": "record",
+        "name": "AOneOf",
+        "namespace": "testdata",
+        "fields": [
+          {
+            "name": "oneof_types",
+            "type": [
+              "string",
+              "int"
+            ],
+            "default": null
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+...with this option on, it will be translated into:
+
+```json
+{
+  "type": "record",
+  "name": "Widget",
+  "fields": [
+    {
+      "name": "a_one_of",
+      "type": {
+        "type": "record",
+        "name": "AOneOf",
+        "fields": [
+          {
+            "name": "a_string",
+            "type": [
+              "null",
+              "string"
+            ],
+            "default": null
+          },
+          {
+            "name": "a_num",
+            "type": [
+              "null",
+              "int"
+            ],
+            "default": null
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+
 ---
 
 To Do List:

@@ -4,7 +4,7 @@
   "namespace": "testdata",
   "fields": [
     {
-      "name": "fromDate",
+      "name": "from_date",
       "type": [
         "null",
         "long"
@@ -12,12 +12,12 @@
       "default": null
     },
     {
-      "name": "toDate",
+      "name": "to_date",
       "type": "long",
       "default": 0
     },
     {
-      "name": "stringMap",
+      "name": "string_map",
       "type": {
         "type": "map",
         "values": {
@@ -44,7 +44,7 @@
       "default": ""
     },
     {
-      "name": "aOneOf",
+      "name": "a_one_of",
       "type": [
         "null",
         {
@@ -53,8 +53,9 @@
           "namespace": "testdata",
           "fields": [
             {
-              "name": "oneof_types",
+              "name": "a",
               "type": [
+                "null",
                 {
                   "type": "record",
                   "name": "TypeA",
@@ -66,7 +67,14 @@
                       "default": ""
                     }
                   ]
-                },
+                }
+              ],
+              "default": null
+            },
+            {
+              "name": "b",
+              "type": [
+                "null",
                 {
                   "type": "record",
                   "name": "TypeB",
@@ -121,7 +129,7 @@
               "namespace": "testdata",
               "fields": [
                 {
-                  "name": "hooBoy",
+                  "name": "hoo_boy",
                   "type": "float",
                   "default": 0
                 }
@@ -153,7 +161,7 @@
             "default": []
           },
           {
-            "name": "optionalName",
+            "name": "optional_name",
             "type": [
               "null",
               "string"
@@ -161,7 +169,7 @@
             "default": null
           },
           {
-            "name": "optionalBlarp",
+            "name": "optional_blarp",
             "type": [
               "null",
               "testdata.Blarp"
@@ -169,7 +177,7 @@
             "default": null
           },
           {
-            "name": "optionalYowza",
+            "name": "optional_yowza",
             "type": [
               "null",
               "testdata.Yowza"
@@ -177,12 +185,12 @@
             "default": null
           },
           {
-            "name": "aNum",
+            "name": "a_num",
             "type": "int",
             "default": 0
           },
           {
-            "name": "aStringMap",
+            "name": "a_string_map",
             "type": {
               "type": "map",
               "values": "string"
@@ -190,7 +198,7 @@
             "default": {}
           },
           {
-            "name": "aBlarpMap",
+            "name": "a_blarp_map",
             "type": {
               "type": "map",
               "values": "testdata.Blarp"
@@ -198,7 +206,7 @@
             "default": {}
           },
           {
-            "name": "aYowzaMap",
+            "name": "a_yowza_map",
             "type": {
               "type": "map",
               "values": "testdata.Yowza"
@@ -206,7 +214,7 @@
             "default": {}
           },
           {
-            "name": "stringListMap",
+            "name": "string_list_map",
             "type": {
               "type": "map",
               "values": "testdata.StringList"
@@ -214,7 +222,7 @@
             "default": {}
           },
           {
-            "name": "stringLists",
+            "name": "string_lists",
             "type": {
               "type": "array",
               "items": "testdata.StringList"
@@ -222,7 +230,7 @@
             "default": []
           },
           {
-            "name": "nestedEnum",
+            "name": "nested_enum",
             "type": {
               "type": "enum",
               "name": "NestedEnum",
