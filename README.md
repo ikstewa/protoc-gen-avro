@@ -159,7 +159,6 @@ message Yowza {
 
 `./my.test.data/Yowza.avsc`
 
-|`json_fieldnames`| Use JSON field names only |
 * `json_fieldname` - if set to true, field names will use JSON format (camel case). E.g. :
 ```protobuf
 message Yowza {
