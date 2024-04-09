@@ -37,9 +37,15 @@ func (t Field) ToJSON(types *TypeRepo) (any, error) {
   return jsonMap, nil
 }
 
-func FieldFromProto(proto *descriptorpb.FieldDescriptorProto) Field {
+func FieldFromProto(proto *descriptorpb.FieldDescriptorProto, typeRepo *TypeRepo) Field {
+  var name string
+  if typeRepo.JsonFieldnames {
+    name = proto.GetJsonName()
+  } else {
+    name = proto.GetName()
+  }
   return Field{
-    Name: proto.GetName(),
+    Name: name,
     Type: FieldTypeFromProto(proto),
     Default: proto.GetDefaultValue(),
   }

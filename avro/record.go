@@ -82,7 +82,7 @@ func RecordFromProto(proto *descriptorpb.DescriptorProto, namespace string, type
 			union.Types = append(union.Types, FieldTypeFromProto(field))
 			oneofs[field.GetOneofIndex()].Type = union
 		} else {
-			fields = append(fields, FieldFromProto(field))
+			fields = append(fields, FieldFromProto(field, typeRepo))
 		}
 	}
 	for _, oneof := range oneofs {

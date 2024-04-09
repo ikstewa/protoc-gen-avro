@@ -15,6 +15,7 @@ type Params struct {
 	RemoveEnumPrefixes           bool
 	PreserveNonStringMaps        bool
 	PrefixSchemaFilesWithPackage bool
+	JsonFieldnames               bool
 }
 
 func ReadRequest() (*pluginpb.CodeGeneratorRequest, error) {
@@ -68,6 +69,8 @@ func ParseParams(req *pluginpb.CodeGeneratorRequest) Params {
 			params.PreserveNonStringMaps = true
 		} else if k == "prefix_schema_files_with_package" {
 			params.PrefixSchemaFilesWithPackage = true
+		} else if k == "json_fieldnames" {
+			params.JsonFieldnames = true
 		}
 	}
 	return params

@@ -14,6 +14,7 @@ type TypeRepo struct {
   CollapseFields []string
   RemoveEnumPrefixes bool
   PreserveNonStringMaps bool
+  JsonFieldnames bool
 }
 
 func NewTypeRepo(params input.Params) *TypeRepo {
@@ -23,6 +24,7 @@ func NewTypeRepo(params input.Params) *TypeRepo {
     CollapseFields: params.CollapseFields,
     RemoveEnumPrefixes: params.RemoveEnumPrefixes,
     PreserveNonStringMaps: params.PreserveNonStringMaps,
+    JsonFieldnames: params.JsonFieldnames,
   }
 }
 

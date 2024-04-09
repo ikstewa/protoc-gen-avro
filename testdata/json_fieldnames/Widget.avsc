@@ -1,0 +1,241 @@
+{
+  "type": "record",
+  "name": "Widget",
+  "namespace": "testdata",
+  "fields": [
+    {
+      "name": "fromDate",
+      "type": [
+        "null",
+        "long"
+      ],
+      "default": null
+    },
+    {
+      "name": "toDate",
+      "type": "long",
+      "default": 0
+    },
+    {
+      "name": "stringMap",
+      "type": {
+        "type": "map",
+        "values": {
+          "type": "record",
+          "name": "StringList",
+          "namespace": "testdata",
+          "fields": [
+            {
+              "name": "data",
+              "type": {
+                "type": "array",
+                "items": "string"
+              },
+              "default": []
+            }
+          ]
+        }
+      },
+      "default": {}
+    },
+    {
+      "name": "strings",
+      "type": "testdata.StringList",
+      "default": ""
+    },
+    {
+      "name": "aOneOf",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "AOneOf",
+          "namespace": "testdata",
+          "fields": [
+            {
+              "name": "oneof_types",
+              "type": [
+                {
+                  "type": "record",
+                  "name": "TypeA",
+                  "namespace": "testdata",
+                  "fields": [
+                    {
+                      "name": "foo",
+                      "type": "string",
+                      "default": ""
+                    }
+                  ]
+                },
+                {
+                  "type": "record",
+                  "name": "TypeB",
+                  "namespace": "testdata",
+                  "fields": [
+                    {
+                      "name": "bar",
+                      "type": "string",
+                      "default": ""
+                    }
+                  ]
+                }
+              ],
+              "default": null
+            }
+          ]
+        }
+      ],
+      "default": null
+    },
+    {
+      "name": "foobar",
+      "type": {
+        "type": "record",
+        "name": "Foobar",
+        "namespace": "testdata",
+        "fields": [
+          {
+            "name": "name",
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "blarp",
+            "type": {
+              "type": "enum",
+              "name": "Blarp",
+              "symbols": [
+                "BLARP_UNSPECIFIED",
+                "BLARP_ME",
+                "BLARP_YOU"
+              ],
+              "default": "BLARP_UNSPECIFIED"
+            },
+            "default": "BLARP_UNSPECIFIED"
+          },
+          {
+            "name": "yowza",
+            "type": {
+              "type": "record",
+              "name": "Yowza",
+              "namespace": "testdata",
+              "fields": [
+                {
+                  "name": "hooBoy",
+                  "type": "float",
+                  "default": 0
+                }
+              ]
+            }
+          },
+          {
+            "name": "blarps",
+            "type": {
+              "type": "array",
+              "items": "testdata.Blarp"
+            },
+            "default": []
+          },
+          {
+            "name": "yowzas",
+            "type": {
+              "type": "array",
+              "items": "testdata.Yowza"
+            },
+            "default": []
+          },
+          {
+            "name": "names",
+            "type": {
+              "type": "array",
+              "items": "string"
+            },
+            "default": []
+          },
+          {
+            "name": "optionalName",
+            "type": [
+              "null",
+              "string"
+            ],
+            "default": null
+          },
+          {
+            "name": "optionalBlarp",
+            "type": [
+              "null",
+              "testdata.Blarp"
+            ],
+            "default": null
+          },
+          {
+            "name": "optionalYowza",
+            "type": [
+              "null",
+              "testdata.Yowza"
+            ],
+            "default": null
+          },
+          {
+            "name": "aNum",
+            "type": "int",
+            "default": 0
+          },
+          {
+            "name": "aStringMap",
+            "type": {
+              "type": "map",
+              "values": "string"
+            },
+            "default": {}
+          },
+          {
+            "name": "aBlarpMap",
+            "type": {
+              "type": "map",
+              "values": "testdata.Blarp"
+            },
+            "default": {}
+          },
+          {
+            "name": "aYowzaMap",
+            "type": {
+              "type": "map",
+              "values": "testdata.Yowza"
+            },
+            "default": {}
+          },
+          {
+            "name": "stringListMap",
+            "type": {
+              "type": "map",
+              "values": "testdata.StringList"
+            },
+            "default": {}
+          },
+          {
+            "name": "stringLists",
+            "type": {
+              "type": "array",
+              "items": "testdata.StringList"
+            },
+            "default": []
+          },
+          {
+            "name": "nestedEnum",
+            "type": {
+              "type": "enum",
+              "name": "NestedEnum",
+              "symbols": [
+                "A",
+                "B"
+              ],
+              "default": "A"
+            },
+            "default": "A"
+          }
+        ]
+      }
+    }
+  ]
+}
