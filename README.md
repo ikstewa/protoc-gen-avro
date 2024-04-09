@@ -190,7 +190,7 @@ message AOneOf {
   }
 }
 message Widget {
-  optional AOneOf a_one_of = 6;
+  AOneOf a_one_of = 6;
 }
 ```
 
