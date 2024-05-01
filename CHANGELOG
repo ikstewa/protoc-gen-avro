@@ -2,6 +2,10 @@
 
 # UNRELEASED
 
+# 0.7.4 - 2024-05-01
+
+- Fix: Emit enums in output.
+
 # 0.7.3 - 2024-03-11
 
 - Fix: Still seeing nested `type: { type: {} }` declarations for maps where the values are collapsed records (only for first invocation).
