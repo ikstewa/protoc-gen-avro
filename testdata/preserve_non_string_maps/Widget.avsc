@@ -236,6 +236,19 @@
               "items": "testdata.model.StringList"
             },
             "default": []
+          },
+          {
+            "name": "nested_enum",
+            "type": {
+              "type": "enum",
+              "name": "NestedEnum",
+              "symbols": [
+                "A",
+                "B"
+              ],
+              "default": "A"
+            },
+            "default": "A"
           }
         ]
       }

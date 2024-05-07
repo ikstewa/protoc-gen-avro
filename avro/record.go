@@ -8,9 +8,9 @@ import (
 )
 
 type Record struct {
-	Name string
+	Name      string
 	Namespace string
-	Fields []Field
+	Fields    []Field
 }
 
 func (t Record) GetName() string {
@@ -61,13 +61,13 @@ func RecordFromProto(proto *descriptorpb.DescriptorProto, namespace string, type
 	var fields []Field
 	oneofs := make([]Field, len(proto.OneofDecl))
 	nested := make([]NamedType, len(proto.NestedType))
-//	enums := make([]Enum, len(proto.EnumType))
+	enums := make([]Enum, len(proto.EnumType))
 	for i, field := range proto.NestedType {
 		nested[i] = RecordFromProto(field, fmt.Sprintf("%s.%s", namespace, proto.GetName()), typeRepo)[0]
 	}
-	//for i, field := range proto.EnumType {
-	//	enums[i] = EnumFromProto(field)
-	//}
+	for i, field := range proto.EnumType {
+		enums[i] = EnumFromProto(field, fmt.Sprintf("%s.%s", namespace, proto.GetName()))
+	}
 	for i, oneof := range proto.OneofDecl {
 		oneofs[i] = Field{
 			Name: oneof.GetName(),
@@ -102,10 +102,13 @@ func RecordFromProto(proto *descriptorpb.DescriptorProto, namespace string, type
 	for _, subRecord := range nested {
 		types = append(types, subRecord)
 	}
+	for _, enum := range enums {
+		types = append(types, enum)
+	}
 	types = append(types, Record{
-		Name: proto.GetName(),
+		Name:      proto.GetName(),
 		Namespace: namespace,
-		Fields: fields,
+		Fields:    fields,
 	})
 	return types
 }
