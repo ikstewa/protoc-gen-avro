@@ -94,7 +94,7 @@ func Test_EmitOnly(t *testing.T) {
 }
 
 func Test_NamespaceMap(t *testing.T) {
-	runTest(t, "namespace_map", map[string]string{"namespace_map": "testdata:mynamespace"})
+	runTest(t, "namespace_map", map[string]string{"namespace_map": "testdata.model:mynamespace"})
 }
 
 func Test_PreserveNonStringMaps(t *testing.T) {
