@@ -12,6 +12,14 @@ enum Blarp {
   BLARP_YOU = 2;
 }
 
+message BleepEnum {
+  enum Bleep {
+    UNKOWN = 0;
+    BLEEP_ME = 1;
+    BLEEP_YOU = 2;
+  }
+}
+
 message Yowza {
   float hoo_boy = 1;
 }
@@ -38,4 +46,6 @@ message Foobar {
   repeated StringList string_lists = 15;
   NestedEnum nested_enum = 16;
   Yowza yowza_again = 17;
+  BleepEnum.Bleep bleep = 18;
+  BleepEnum.Bleep bleep_again = 19;
 }
