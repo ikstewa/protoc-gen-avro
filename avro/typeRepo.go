@@ -16,6 +16,7 @@ type TypeRepo struct {
   PreserveNonStringMaps bool
   JsonFieldnames bool
   RetainOneofFieldnames bool
+  NullableArrays bool
 }
 
 func NewTypeRepo(params input.Params) *TypeRepo {
@@ -27,6 +28,7 @@ func NewTypeRepo(params input.Params) *TypeRepo {
     PreserveNonStringMaps: params.PreserveNonStringMaps,
     JsonFieldnames: params.JsonFieldnames,
     RetainOneofFieldnames: params.RetainOneofFieldnames,
+    NullableArrays: params.NullableArrays,
   }
 }
 

@@ -117,6 +117,10 @@ func Test_RetainOneofFieldnames_JsonFieldnames(t *testing.T) {
   runTest(t, "retain_oneof_fieldnames_json_fieldnames", map[string]string{"retain_oneof_fieldnames": "true", "json_fieldnames": "true"})
 }
 
+func Test_NullableArrays(t *testing.T) {
+	runTest(t, "nullable_arrays", map[string]string{"nullable_arrays": "true"})
+}
+
 func assertEqualFiles(t *testing.T, original, generated string) {
 	names, err := fileNames(original, false, true)
 	if err != nil {

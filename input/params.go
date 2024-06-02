@@ -17,6 +17,7 @@ type Params struct {
 	PrefixSchemaFilesWithPackage bool
 	JsonFieldnames               bool
 	RetainOneofFieldnames        bool
+	NullableArrays               bool
 }
 
 func ReadRequest() (*pluginpb.CodeGeneratorRequest, error) {
@@ -74,6 +75,8 @@ func ParseParams(req *pluginpb.CodeGeneratorRequest) Params {
 			params.JsonFieldnames = true
 		} else if k == "retain_oneof_fieldnames" {
 			params.RetainOneofFieldnames = true
+		} else if k == "nullable_arrays" {
+			params.NullableArrays = true
 		}
 	}
 	return params

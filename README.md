@@ -258,6 +258,35 @@ message Widget {
 }
 ```
 
+* `nullable_arrays` - if set to true (default false), arrays are mapped to union of null. E.g. :
+
+```protobuf
+message StringList {
+  repeated string strings = 1;
+}
+```
+
+...the output will look like:
+
+```json
+{
+  "type": "record",
+  "name": "StringList",
+  "fields": [
+    {
+      "name": "strings",
+      "type": [
+        "null",
+        {
+          "type": "array",
+          "items": "string"
+        }
+      ],
+      "default": null
+    }
+  ]
+}
+```
 
 ---
 
