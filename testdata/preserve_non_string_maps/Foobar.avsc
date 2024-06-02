@@ -122,8 +122,7 @@
             },
             {
               "name": "value",
-              "type": "testdata.Yowza",
-              "default": ""
+              "type": "testdata.Yowza"
             }
           ]
         }
@@ -172,6 +171,10 @@
         "default": "A"
       },
       "default": "A"
+    },
+    {
+      "name": "yowza_again",
+      "type": "testdata.Yowza"
     }
   ]
 }

@@ -156,6 +156,10 @@
         "default": "A"
       },
       "default": "A"
+    },
+    {
+      "name": "yowza_again",
+      "type": "mynamespace.Yowza"
     }
   ]
 }

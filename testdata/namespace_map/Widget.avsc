@@ -40,8 +40,7 @@
     },
     {
       "name": "strings",
-      "type": "mynamespace.StringList",
-      "default": ""
+      "type": "mynamespace.StringList"
     },
     {
       "name": "a_one_of",
@@ -233,6 +232,10 @@
               "default": "A"
             },
             "default": "A"
+          },
+          {
+            "name": "yowza_again",
+            "type": "mynamespace.Yowza"
           }
         ]
       }

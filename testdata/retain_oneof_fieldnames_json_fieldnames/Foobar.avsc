@@ -156,6 +156,10 @@
         "default": "A"
       },
       "default": "A"
+    },
+    {
+      "name": "yowzaAgain",
+      "type": "testdata.Yowza"
     }
   ]
 }

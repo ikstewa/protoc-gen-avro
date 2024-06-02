@@ -40,8 +40,7 @@
     },
     {
       "name": "strings",
-      "type": "testdata.StringList",
-      "default": ""
+      "type": "testdata.StringList"
     },
     {
       "name": "aOneOf",
@@ -233,6 +232,10 @@
               "default": "A"
             },
             "default": "A"
+          },
+          {
+            "name": "yowzaAgain",
+            "type": "testdata.Yowza"
           }
         ]
       }

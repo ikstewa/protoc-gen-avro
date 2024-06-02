@@ -126,6 +126,8 @@ func DefaultValue(t any) any {
 		return noDefault
 	case "array":
 		return []any{}
+	case "string":
+		return ""
 	}
 
 	switch typedT := t.(type) {
@@ -140,5 +142,5 @@ func DefaultValue(t any) any {
 			return DefaultValue(val)
 	}
 
-	return ""
+	return noDefault
 }

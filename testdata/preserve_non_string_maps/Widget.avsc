@@ -40,8 +40,7 @@
     },
     {
       "name": "strings",
-      "type": "testdata.StringList",
-      "default": ""
+      "type": "testdata.StringList"
     },
     {
       "name": "a_one_of",
@@ -213,8 +212,7 @@
                   },
                   {
                     "name": "value",
-                    "type": "testdata.Yowza",
-                    "default": ""
+                    "type": "testdata.Yowza"
                   }
                 ]
               }
@@ -249,6 +247,10 @@
               "default": "A"
             },
             "default": "A"
+          },
+          {
+            "name": "yowza_again",
+            "type": "testdata.Yowza"
           }
         ]
       }
