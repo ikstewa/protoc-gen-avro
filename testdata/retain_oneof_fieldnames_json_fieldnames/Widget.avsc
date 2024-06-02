@@ -244,6 +244,24 @@
           {
             "name": "yowzaAgain",
             "type": "testdata.Yowza"
+          },
+          {
+            "name": "bleep",
+            "type": {
+              "type": "enum",
+              "name": "Bleep",
+              "symbols": [
+                "UNKOWN",
+                "BLEEP_ME",
+                "BLEEP_YOU"
+              ],
+              "default": "UNKOWN"
+            },
+            "default": "UNKOWN"
+          },
+          {
+            "name": "bleepAgain",
+            "type": "testdata.BleepEnum.Bleep"
           }
         ]
       }
