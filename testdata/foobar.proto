@@ -37,4 +37,5 @@ message Foobar {
   map<string, StringList> string_list_map = 14;
   repeated StringList string_lists = 15;
   NestedEnum nested_enum = 16;
+  Yowza yowza_again = 17;
 }
