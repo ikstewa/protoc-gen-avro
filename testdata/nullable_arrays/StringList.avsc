@@ -1,0 +1,18 @@
+{
+  "type": "record",
+  "name": "StringList",
+  "namespace": "testdata",
+  "fields": [
+    {
+      "name": "data",
+      "type": [
+        "null",
+        {
+          "type": "array",
+          "items": "string"
+        }
+      ],
+      "default": null
+    }
+  ]
+}

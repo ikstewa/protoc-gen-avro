@@ -54,7 +54,11 @@ func FieldFromProto(proto *descriptorpb.FieldDescriptorProto, typeRepo *TypeRepo
 func FieldTypeFromProto(proto *descriptorpb.FieldDescriptorProto, typeRepo *TypeRepo) Type {
 	basicType := BasicFieldTypeFromProto(proto)
 	if proto.GetLabel() == descriptorpb.FieldDescriptorProto_LABEL_REPEATED {
-		return Array{Items: basicType}
+		if typeRepo.NullableArrays {
+			return Union{Types: []Type{Bare("null"), Array{Items: basicType}}}
+		} else {
+			return Array{Items: basicType}
+		}
 	} else if proto.GetProto3Optional() || (proto.OneofIndex != nil && typeRepo.RetainOneofFieldnames) {
 		return Union{Types: []Type{Bare("null"), basicType}}
 	} else {
